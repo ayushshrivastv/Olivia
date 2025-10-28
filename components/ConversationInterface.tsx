@@ -431,13 +431,13 @@ export function ConversationInterface() {
                     <div className="fixed bottom-[40px] md:bottom-[60px] left-1/2 transform -translate-x-1/2 z-10">
                         <Button
                             variant={'outline'}
-                            className={'rounded-full select-none bg-white text-black border-black hover:bg-gray-100 hover:text-black disabled:bg-gray-300 disabled:text-gray-500'}
+                            className={'rounded-full select-none'}
                             size={"lg"}
                             disabled={isLoading}
                             onClick={conversation || isConnected || glMode ? endConversation : startConversation}
                             tabIndex={-1}
                         >
-                            {isLoading ? 'Connecting...' : (conversation || isConnected || glMode ? 'End conversation' : <ShinyText text="Start conversation" speed={3} disabled={false} />)}
+                            {isLoading ? 'Connecting...' : (conversation || isConnected || glMode ? 'End Call' : <ShinyText text="Call Olivia" speed={3} disabled={false} />)}
                         </Button>
                     </div>
                 )}
@@ -501,7 +501,7 @@ export function ConversationInterface() {
                         </div>
                     </div>
                 )}
-            </div >
+            </div>
         </>
     )
 }

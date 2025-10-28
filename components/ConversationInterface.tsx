@@ -428,10 +428,10 @@ export function ConversationInterface() {
                 </div>
 
                 {mounted && (
-                    <div className="fixed bottom-[180px] md:bottom-[200px] left-1/2 transform -translate-x-1/2">
+                    <div className="fixed bottom-[160px] left-1/2 transform -translate-x-1/2 z-10">
                         <Button
                             variant={'outline'}
-                            className={'rounded-full select-none'}
+                            className={'rounded-full select-none bg-white text-black ring-2 ring-black hover:bg-gray-100 disabled:bg-gray-300 disabled:text-gray-500'}
                             size={"lg"}
                             disabled={isLoading}
                             onClick={conversation || isConnected || glMode ? endConversation : startConversation}
@@ -444,7 +444,7 @@ export function ConversationInterface() {
 
                 {mounted && (
                     <div className="fixed bottom-[60px] md:bottom-[80px] left-0 right-0">
-                        <CurvedLoop 
+                        <CurvedLoop
                             marqueeText="Artificial Superintelligence Alliance"
                             speed={2}
                             curveAmount={10}

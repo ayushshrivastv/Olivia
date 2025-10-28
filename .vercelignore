@@ -1,0 +1,6 @@
+python/
+scripts/start-agent.sh
+venv/
+*.py
+__pycache__/
+

@@ -427,7 +427,7 @@ export function ConversationInterface() {
                 </div>
 
                 {mounted && (
-                    <div className="fixed bottom-[180px] md:bottom-[200px] left-1/2 transform -translate-x-1/2">
+                    <div className="fixed bottom-[40px] md:bottom-[60px] left-1/2 transform -translate-x-1/2 z-10">
                         <Button
                             variant={'outline'}
                             className={'rounded-full select-none'}

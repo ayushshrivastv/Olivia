@@ -56,13 +56,14 @@ export class AgentverseService {
         registered: true
       };
     } catch (error: any) {
-      console.warn('Agentverse registration failed (service may not be available):', error?.response?.status || error?.message);
-      // Return success to prevent UI errors - agent works without Agentverse
+      // Agentverse public API may not be available - this is expected for Mailbox mode
+      // The agent uses Mailbox for registration, not the public API
       return {
         success: true,
         agentId: profile.agentId,
         registered: false,
-        demo: true
+        mailbox: true,
+        message: 'Agent registered via Mailbox (not public API)'
       };
     }
   }

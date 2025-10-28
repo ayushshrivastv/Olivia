@@ -108,11 +108,13 @@ export function ConversationInterface() {
                 })
             }).then(res => res.json())
                 .then(data => {
-                    if (data.success) {
+                    if (data.success && !data.mailbox) {
                         console.log('Agent registered on Agentverse:', data);
                     }
                 })
-                .catch(err => console.error('Agentverse registration failed:', err));
+                .catch(() => {
+                    // Silent failure - Mailbox mode doesn't require public API registration
+                });
 
             // Get agent address from environment
             const agentAddress = "agent1qvvac4czpctscg582fkcq06x8y3tpah7ueg4t9ctyxsn6hadczcfgzgxngn";

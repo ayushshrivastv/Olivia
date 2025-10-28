@@ -11,6 +11,7 @@ import { VoiceChatTranscript } from "./VoiceChatTranscript";
 import { Canvas } from "@react-three/fiber";
 import { Orb } from "@/components/ui/orb";
 import type { AgentState } from "@/components/ui/orb";
+import ShinyText from "./ShinyText";
 
 const INBOUND_AGENT_ID = process.env.NEXT_PUBLIC_INBOUND_AGENT_ID || '';
 const OUTBOUND_AGENT_ID = process.env.NEXT_PUBLIC_OUTBOUND_AGENT_ID || '';
@@ -436,7 +437,7 @@ export function ConversationInterface() {
                             onClick={conversation || isConnected || glMode ? endConversation : startConversation}
                             tabIndex={-1}
                         >
-                            {isLoading ? 'Connecting...' : (conversation || isConnected || glMode ? 'End conversation' : 'Start conversation')}
+                            {isLoading ? 'Connecting...' : (conversation || isConnected || glMode ? 'End conversation' : <ShinyText text="Start conversation" speed={3} disabled={false} />)}
                         </Button>
                     </div>
                 )}

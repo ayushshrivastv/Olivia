@@ -1,9 +1,5 @@
 {
   "buildCommand": "npm run build",
-  "installCommand": "npm install",
-  "ignoreCommand": "if [ -d 'python' ]; then echo 'Skipping Python files'; fi",
-  "env": {
-    "SKIP_PYTHON_AGENT": "true"
-  }
+  "installCommand": "npm install"
 }
 

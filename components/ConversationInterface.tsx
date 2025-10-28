@@ -440,18 +440,6 @@ export function ConversationInterface() {
                         </Button>
                     </div>
                 )}
-                
-                {mounted && (
-                    <div className="fixed bottom-[60px] md:bottom-[80px] left-0 right-0">
-                        <CurvedLoop 
-                            marqueeText="Be ✦ Creative ✦ With ✦ React ✦ Bits ✦"
-                            speed={3}
-                            curveAmount={500}
-                            direction="right"
-                            interactive={true}
-                        />
-                    </div>
-                )}
 
                 {(conversation || isConnected || glMode) && (
                     <VoiceChatTranscript

@@ -431,10 +431,10 @@ export function ConversationInterface() {
                     <div className="fixed bottom-[40px] md:bottom-[60px] left-1/2 transform -translate-x-1/2 z-10">
                         <Button
                             variant={'outline'}
-                            className={'rounded-full select-none'}
+                            className={'rounded-full select-none bg-gray-800 text-white border-gray-700 hover:bg-gray-700 hover:text-white disabled:bg-gray-600'}
                             size={"lg"}
                             disabled={isLoading}
-                            onClick={conversation || isConnected || glMode ? endConversation : startConversation}
+                            onClick={conversation || isConnected || glMode ? endConversation : startConversation Join}
                             tabIndex={-1}
                         >
                             {isLoading ? 'Connecting...' : (conversation || isConnected || glMode ? 'End conversation' : <ShinyText text="Start conversation" speed={3} disabled={false} />)}

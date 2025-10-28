@@ -431,77 +431,77 @@ export function ConversationInterface() {
                     <div className="fixed bottom-[40px] md:bottom-[60px] left-1/2 transform -translate-x-1/2 z-10">
                         <Button
                             variant={'outline'}
-                            className={'rounded-full select-none bg-gray-800 text-white border-gray-700 hover:bg-gray-700 hover:text-white disabled:bg-gray-600'}
+                            className={'rounded-full select-none bg-white text-black border-black hover:bg-gray-100 hover:text-black disabled:bg-gray-300 disabled:text-gray-500'}
                             size={"lg"}
                             disabled={isLoading}
                             onClick={conversation || isConnected || glMode ? endConversation : startConversation}
-                        tabIndex={-1}
+                            tabIndex={-1}
                         >
-                        {isLoading ? 'Connecting...' : (conversation || isConnected || glMode ? 'End conversation' : <ShinyText text="Start conversation" speed={3} disabled={false} />)}
-                    </Button>
+                            {isLoading ? 'Connecting...' : (conversation || isConnected || glMode ? 'End conversation' : <ShinyText text="Start conversation" speed={3} disabled={false} />)}
+                        </Button>
                     </div>
                 )}
 
-            {(conversation || isConnected || glMode) && (
-                <VoiceChatTranscript
-                    messages={llmChat}
-                    blockchainTx={latestBlockchainTx}
-                    mettaKnowledge={latestMettaKnowledge}
-                />
-            )}
+                {(conversation || isConnected || glMode) && (
+                    <VoiceChatTranscript
+                        messages={llmChat}
+                        blockchainTx={latestBlockchainTx}
+                        mettaKnowledge={latestMettaKnowledge}
+                    />
+                )}
 
-            {mounted && fetchaiAddress && (conversation || isConnected || glMode) && (
-                <div className="fixed top-4 right-4 z-50 bg-white border border-gray-300 shadow-lg px-4 py-2.5 rounded-lg">
-                    <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse"></div>
-                        <span className="text-sm font-semibold text-gray-900">ASI Alliance Network Active</span>
-                    </div>
-                    <div className="text-xs mt-1.5 text-gray-700 font-mono">
+                {mounted && fetchaiAddress && (conversation || isConnected || glMode) && (
+                    <div className="fixed top-4 right-4 z-50 bg-white border border-gray-300 shadow-lg px-4 py-2.5 rounded-lg">
                         <div className="flex items-center gap-2">
-                            <span>Agent:</span>
-                            <span className="truncate max-w-[200px]" title={fetchaiAddress}>
-                                {fetchaiAddress.length > 20
-                                    ? `${fetchaiAddress.substring(0, 10)}...${fetchaiAddress.substring(fetchaiAddress.length - 6)}`
-                                    : fetchaiAddress
-                                }
-                            </span>
-                            <button
-                                onClick={() => {
-                                    navigator.clipboard.writeText(fetchaiAddress);
-                                    setCopied(true);
-                                    setTimeout(() => setCopied(false), 2000);
-                                }}
-                                className="text-blue-600 hover:text-blue-800 ml-1 p-1 hover:bg-blue-50 rounded transition-colors"
-                                title={copied ? "Copied!" : "Copy full address"}
-                            >
-                                {copied ? (
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                    </svg>
-                                ) : (
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                    </svg>
-                                )}
-                            </button>
+                            <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse"></div>
+                            <span className="text-sm font-semibold text-gray-900">ASI Alliance Network Active</span>
+                        </div>
+                        <div className="text-xs mt-1.5 text-gray-700 font-mono">
+                            <div className="flex items-center gap-2">
+                                <span>Agent:</span>
+                                <span className="truncate max-w-[200px]" title={fetchaiAddress}>
+                                    {fetchaiAddress.length > 20
+                                        ? `${fetchaiAddress.substring(0, 10)}...${fetchaiAddress.substring(fetchaiAddress.length - 6)}`
+                                        : fetchaiAddress
+                                    }
+                                </span>
+                                <button
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(fetchaiAddress);
+                                        setCopied(true);
+                                        setTimeout(() => setCopied(false), 2000);
+                                    }}
+                                    className="text-blue-600 hover:text-blue-800 ml-1 p-1 hover:bg-blue-50 rounded transition-colors"
+                                    title={copied ? "Copied!" : "Copy full address"}
+                                >
+                                    {copied ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    ) : (
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                        </svg>
+                                    )}
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
 
-            {mounted && !apiConfigured && (
-                <div className="fixed bottom-4 right-4 z-50 bg-blue-900 shadow-lg px-4 py-3 rounded-lg max-w-xs">
-                    <div className="flex items-start gap-2">
-                        <svg className="w-5 h-5 text-white flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                        </svg>
-                        <div>
-                            <p className="text-sm font-medium text-white leading-tight">Unable to connect. Please configure your API key to start using Olivia.</p>
+                {mounted && !apiConfigured && (
+                    <div className="fixed bottom-4 right-4 z-50 bg-blue-900 shadow-lg px-4 py-3 rounded-lg max-w-xs">
+                        <div className="flex items-start gap-2">
+                            <svg className="w-5 h-5 text-white flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                            </svg>
+                            <div>
+                                <p className="text-sm font-medium text-white leading-tight">Unable to connect. Please configure your API key to start using Olivia.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
-        </div >
+                )}
+            </div >
         </>
     )
 }

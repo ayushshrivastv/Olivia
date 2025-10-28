@@ -60,6 +60,7 @@ export function ConversationInterface() {
     const [mounted, setMounted] = useState(false);
     const [conversation, setConversation] = useState<Conversation | null>(null)
     const [isConnected, setIsConnected] = useState(false)
+    const [, setIsSpeaking] = useState(false)
     let init_agent_type: 'inbound' | 'outbound' = Math.random() < 0.5 ? 'inbound' : 'outbound'
     init_agent_type = 'inbound'
     const [agentType, setAgentType] = useState<'inbound' | 'outbound'>(init_agent_type)

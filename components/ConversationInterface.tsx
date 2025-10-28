@@ -11,6 +11,7 @@ import { VoiceChatTranscript } from "./VoiceChatTranscript";
 import { Canvas } from "@react-three/fiber";
 import { Orb } from "@/components/ui/orb";
 import type { AgentState } from "@/components/ui/orb";
+import CurvedLoop from "./CurvedLoop";
 
 const INBOUND_AGENT_ID = process.env.NEXT_PUBLIC_INBOUND_AGENT_ID || '';
 const OUTBOUND_AGENT_ID = process.env.NEXT_PUBLIC_OUTBOUND_AGENT_ID || '';
@@ -427,7 +428,7 @@ export function ConversationInterface() {
                 </div>
 
                 {mounted && (
-                    <div className="fixed bottom-[40px] md:bottom-[60px] left-1/2 transform -translate-x-1/2">
+                    <div className="fixed bottom-[180px] md:bottom-[200px] left-1/2 transform -translate-x-1/2">
                         <Button
                             variant={'outline'}
                             className={'rounded-full select-none'}
@@ -438,6 +439,18 @@ export function ConversationInterface() {
                         >
                             {isLoading ? 'Connecting...' : (conversation || isConnected || glMode ? 'End conversation' : 'Start conversation')}
                         </Button>
+                    </div>
+                )}
+                
+                {mounted && (
+                    <div className="fixed bottom-[60px] md:bottom-[80px] left-0 right-0">
+                        <CurvedLoop 
+                            marqueeText="Be ✦ Creative ✦ With ✦ React ✦ Bits ✦"
+                            speed={3}
+                            curveAmount={500}
+                            direction="right"
+                            interactive={true}
+                        />
                     </div>
                 )}
 

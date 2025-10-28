@@ -11,7 +11,6 @@ import { VoiceChatTranscript } from "./VoiceChatTranscript";
 import { Canvas } from "@react-three/fiber";
 import { Orb } from "@/components/ui/orb";
 import type { AgentState } from "@/components/ui/orb";
-import CurvedLoop from "./CurvedLoop";
 
 const INBOUND_AGENT_ID = process.env.NEXT_PUBLIC_INBOUND_AGENT_ID || '';
 const OUTBOUND_AGENT_ID = process.env.NEXT_PUBLIC_OUTBOUND_AGENT_ID || '';
@@ -428,10 +427,10 @@ export function ConversationInterface() {
                 </div>
 
                 {mounted && (
-                    <div className="fixed bottom-[160px] left-1/2 transform -translate-x-1/2 z-10">
+                    <div className="fixed bottom-[180px] md:bottom-[200px] left-1/2 transform -translate-x-1/2">
                         <Button
                             variant={'outline'}
-                            className={'rounded-full select-none bg-white text-black ring-2 ring-black hover:bg-gray-100 disabled:bg-gray-300 disabled:text-gray-500'}
+                            className={'rounded-full select-none'}
                             size={"lg"}
                             disabled={isLoading}
                             onClick={conversation || isConnected || glMode ? endConversation : startConversation}
@@ -441,13 +440,13 @@ export function ConversationInterface() {
                         </Button>
                     </div>
                 )}
-
+                
                 {mounted && (
                     <div className="fixed bottom-[60px] md:bottom-[80px] left-0 right-0">
-                        <CurvedLoop
-                            marqueeText="Artificial Superintelligence Alliance"
-                            speed={2}
-                            curveAmount={10}
+                        <CurvedLoop 
+                            marqueeText="Be ✦ Creative ✦ With ✦ React ✦ Bits ✦"
+                            speed={3}
+                            curveAmount={500}
                             direction="right"
                             interactive={true}
                         />

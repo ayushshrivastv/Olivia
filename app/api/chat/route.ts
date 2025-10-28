@@ -21,7 +21,7 @@ export async function POST(req: Request) {
   try {
     const { messages, agentType, sessionId, useMetta, useBlockchain } = await req.json();
     
-    let enhancedMessages = [...messages];
+    const enhancedMessages = [...messages];
     let blockchainTx = null;
     let mettaKnowledge = null;
 

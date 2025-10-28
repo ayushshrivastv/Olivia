@@ -49,7 +49,7 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET(req: Request) {
+export async function GET() {
   // Return agent capabilities for ASI:One discovery
   return NextResponse.json({
     protocol: "chat-asione-v1",

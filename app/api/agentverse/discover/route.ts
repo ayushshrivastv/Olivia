@@ -17,7 +17,7 @@ export async function GET(req: Request) {
     const agents = await agentverseService.discoverAgents(capability);
 
     return NextResponse.json({ agents });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Discovery failed' }, { status: 500 });
   }
 }

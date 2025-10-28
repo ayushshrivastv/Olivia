@@ -32,11 +32,11 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
     const address = await blockchainService.getAgentAddress();
     return NextResponse.json({ address });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to get address' }, { status: 500 });
   }
 }

@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import * as React from "react";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { Conversation } from "@11labs/client";
-import { cn } from "@/lib/utils";
 import Script from "next/script";
 import { sendAudioMessage, audioMessageEmitter, startRecording, getcontext, createAnalyserNode, getAnalyserNode, initAudio } from "@/utils/AudioUtils";
 import AudioMotionAnalyzer from 'audiomotion-analyzer';
@@ -61,7 +60,6 @@ export function ConversationInterface() {
     const [mounted, setMounted] = useState(false);
     const [conversation, setConversation] = useState<Conversation | null>(null)
     const [isConnected, setIsConnected] = useState(false)
-    const [isSpeaking, setIsSpeaking] = useState(false)
     let init_agent_type: 'inbound' | 'outbound' = Math.random() < 0.5 ? 'inbound' : 'outbound'
     init_agent_type = 'inbound'
     const [agentType, setAgentType] = useState<'inbound' | 'outbound'>(init_agent_type)
@@ -74,8 +72,8 @@ export function ConversationInterface() {
     const [glMode, setGlMode] = useState(false);
     const [isProcessingInput, setIsProcessingInput] = useState(false);
     const audioMotionRef = useRef<AudioMotionAnalyzer | null>(null);
-    const [blockchainEnabled, setBlockchainEnabled] = useState(true);
-    const [mettaEnabled, setMettaEnabled] = useState(true);
+    const [blockchainEnabled] = useState(true);
+    const [mettaEnabled] = useState(true);
     const [latestBlockchainTx, setLatestBlockchainTx] = useState<any>(null);
     const [latestMettaKnowledge, setLatestMettaKnowledge] = useState<any>(null);
     const [fetchaiAddress, setFetchaiAddress] = useState<string>("");
@@ -120,21 +118,21 @@ export function ConversationInterface() {
             const agentAddress = "agent1qvvac4czpctscg582fkcq06x8y3tpah7ueg4t9ctyxsn6hadczcfgzgxngn";
             setFetchaiAddress(agentAddress);
         }
-    }, [mounted, sessionId, agentType]);
+    }, [mounted, sessionId]);
 
-    if (false)
-        useEffect(() => {
-            console.log('DEBUG')
-            setGlMode(true);
-            setConversation(null);
-            startRecording();
+    // Debug effect (commented out)
+    // useEffect(() => {
+    //     console.log('DEBUG')
+    //     setGlMode(true);
+    //     setConversation(null);
+    //     startRecording();
 
-            setTimeout(() => {
-                const msg = agentType === 'inbound' ? 'Hey there? how are you?' : 'Hello hello AI-buddy!'
-                setLatestUserMessage(msg)
-                sendAudioMessage(msg, agentType === 'inbound');
-            }, 5000);
-        }, [])
+    //     setTimeout(() => {
+    //         const msg = agentType === 'inbound' ? 'Hey there? how are you?' : 'Hello hello AI-buddy!'
+    //         setLatestUserMessage(msg)
+    //         sendAudioMessage(msg, agentType === 'inbound');
+    //     }, 5000);
+    // }, [agentType])
 
 
     const endConversation = useCallback(async () => {

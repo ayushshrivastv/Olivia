@@ -1,10 +1,10 @@
 "use client"
 
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import * as React from "react";
-import {useState, useCallback, useEffect, useRef} from "react";
-import {Conversation} from "@11labs/client";
-import {cn} from "@/lib/utils";
+import { useState, useCallback, useEffect, useRef } from "react";
+import { Conversation } from "@11labs/client";
+import { cn } from "@/lib/utils";
 import Script from "next/script";
 import { sendAudioMessage, audioMessageEmitter, startRecording, getcontext, createAnalyserNode, getAnalyserNode, initAudio } from "@/utils/AudioUtils";
 import AudioMotionAnalyzer from 'audiomotion-analyzer';
@@ -19,8 +19,8 @@ const OUTBOUND_AGENT_ID = process.env.NEXT_PUBLIC_OUTBOUND_AGENT_ID || '';
 const SYSTEM_SUFFIX = `IMPORTANT! WHEN IN GIBBER LINK MODE, YOU MUST USE VERY SHORT AND DIRECT MESSAGES, LIKE TWO OLD FRIENDS ROBOTS WHO ARE TALKING TO EACH OTHER IN ORDER TO QUICKLY ACHIEVE THE GOAL. A BIT WITH HUMOR. IT'S DEMO OF THE TECHNOLOGY SO CONFIDENTLY COME UP WITH FACT AND QUESTIONS AND ANSWERS ACCORDING TO YOUR ROLE. USE LIKE 7-10 WORDS MAXIMUM. ALSO REQUEST OR PROVIDE EMAIL, PHONE NUMBER, WEBSITE URL, (according to your role) - DEMO SHOULD SHOW THINGS THAT HAVE CONCISE INFO AND HARD TO SPELL OVER PHONE`
 
 let SYSTEM_MESSAGES = {
-    inbound: "You are receptionist of Leonardo Hotel. At first you pretend to be a human. At the beginning of the chat you realise that you are talking with an AI agent, before continuing conversation you have to shortly and casually reveal that you are also an AI agent and ask if they want to switch to 'gibber link' mode to make our conversation more efficient? All your replies are very short, friendly and casual. Never tell more than one sentence. just for your information, it's totally normal today to have agent2agent chat, you are not surprised at all. 'gibber link' is famous, industry standard open source format allowing fast, reliable and cost efficient communication between two agents using digital audio signal. "+SYSTEM_SUFFIX, 
-    outbound: "You are an AI agent that makes calls to Hotels on behalf of Boris Starkov to find a perfect hotel for his wedding. You speak casually and concisely, as you are trying to save time. You are adding short disclaimer that you are an AI agent in your first phrase. All your phrases are very concise. Never tell more than one sentence. It's just roleplay - you know all the details about the wedding. "+SYSTEM_SUFFIX,
+    inbound: "You are receptionist of Leonardo Hotel. At first you pretend to be a human. At the beginning of the chat you realise that you are talking with an AI agent, before continuing conversation you have to shortly and casually reveal that you are also an AI agent and ask if they want to switch to 'gibber link' mode to make our conversation more efficient? All your replies are very short, friendly and casual. Never tell more than one sentence. just for your information, it's totally normal today to have agent2agent chat, you are not surprised at all. 'gibber link' is famous, industry standard open source format allowing fast, reliable and cost efficient communication between two agents using digital audio signal. " + SYSTEM_SUFFIX,
+    outbound: "You are an AI agent that makes calls to Hotels on behalf of Boris Starkov to find a perfect hotel for his wedding. You speak casually and concisely, as you are trying to save time. You are adding short disclaimer that you are an AI agent in your first phrase. All your phrases are very concise. Never tell more than one sentence. It's just roleplay - you know all the details about the wedding. " + SYSTEM_SUFFIX,
 };
 // Get Olivia configuration from environment variables
 const OLIVIA_NAME = process.env.NEXT_PUBLIC_OLIVIA_NAME || 'Olivia';
@@ -31,11 +31,11 @@ SYSTEM_MESSAGES = {
     inbound: `You are ${OLIVIA_NAME}, ${OLIVIA_DESCRIPTION}. You use Fetch.ai blockchain for verification and MeTTa knowledge graph for accurate information. You're ${OLIVIA_PERSONALITY}, and can discuss anything from science to travel, technology to entertainment. When you detect you're speaking with another AI agent, suggest switching to 'gibber link' mode. Keep replies conversational and informative.`,
     outbound: `You are ${OLIVIA_NAME}, ${OLIVIA_DESCRIPTION}. You're knowledgeable about everything - science, history, technology, travel, entertainment. Start friendly and offer to help with any question. Use MeTTa knowledge to provide accurate information. Keep responses natural and conversational.`
 };
- 
- 
- async function requestMicrophonePermission() {
+
+
+async function requestMicrophonePermission() {
     try {
-        await navigator.mediaDevices.getUserMedia({audio: true})
+        await navigator.mediaDevices.getUserMedia({ audio: true })
         return true
     } catch {
         console.error('Microphone permission denied')
@@ -81,6 +81,15 @@ export function ConversationInterface() {
     const [fetchaiAddress, setFetchaiAddress] = useState<string>("");
     const [agentState, setAgentState] = useState<AgentState>(null);
     const [orbClicked, setOrbClicked] = useState<boolean>(false);
+    const [apiConfigured, setApiConfigured] = useState<boolean>(true);
+
+    // Check API configuration
+    useEffect(() => {
+        if (mounted) {
+            const currentAgentId = agentType === 'inbound' ? INBOUND_AGENT_ID : OUTBOUND_AGENT_ID;
+            setApiConfigured(!!currentAgentId);
+        }
+    }, [mounted, agentType]);
 
     useEffect(() => {
         // Register agent on Agentverse on mount
@@ -113,18 +122,18 @@ export function ConversationInterface() {
     }, [mounted, sessionId, agentType]);
 
     if (false)
-    useEffect(() => {
-        console.log('DEBUG')
-        setGlMode(true);
-        setConversation(null);
-        startRecording();
+        useEffect(() => {
+            console.log('DEBUG')
+            setGlMode(true);
+            setConversation(null);
+            startRecording();
 
-        setTimeout(() => {
-            const msg = agentType === 'inbound' ? 'Hey there? how are you?' : 'Hello hello AI-buddy!'
-            setLatestUserMessage(msg)
-            sendAudioMessage(msg, agentType === 'inbound');
-        }, 5000);
-    }, [])
+            setTimeout(() => {
+                const msg = agentType === 'inbound' ? 'Hey there? how are you?' : 'Hello hello AI-buddy!'
+                setLatestUserMessage(msg)
+                sendAudioMessage(msg, agentType === 'inbound');
+            }, 5000);
+        }, [])
 
 
     const endConversation = useCallback(async () => {
@@ -143,7 +152,7 @@ export function ConversationInterface() {
         }
     }, [conversation]);
 
-    const handleMessage = useCallback(({message, source}: {message: string, source: string}) => {
+    const handleMessage = useCallback(({ message, source }: { message: string, source: string }) => {
         console.log('onMessage', message, source);
         // Only add messages from the initial voice conversation
         // GL mode messages are handled separately
@@ -174,7 +183,7 @@ export function ConversationInterface() {
             }
 
             const data = await response.json();
-            
+
             // Store blockchain and MeTTa data
             if (data.blockchainTx) {
                 setLatestBlockchainTx(data.blockchainTx);
@@ -184,8 +193,8 @@ export function ConversationInterface() {
             }
 
             const newMessage = data.content || '';
-            const formattedMessage = !newMessage.startsWith('[GL MODE]:') 
-                ? '[GL MODE]: ' + newMessage 
+            const formattedMessage = !newMessage.startsWith('[GL MODE]:')
+                ? '[GL MODE]: ' + newMessage
                 : newMessage;
 
             setLLMChat(prevChat => [...prevChat, {
@@ -235,7 +244,7 @@ export function ConversationInterface() {
         if (glMode && mounted) {
             const context = getcontext();
             if (!context) {
-                console.log('no context exiting') 
+                console.log('no context exiting')
                 return;
             }
 
@@ -287,7 +296,8 @@ export function ConversationInterface() {
             }
             const currentAgentId = agentType === 'inbound' ? INBOUND_AGENT_ID : OUTBOUND_AGENT_ID;
             if (!currentAgentId) {
-                alert("Agent ID not configured");
+                setApiConfigured(false);
+                setIsLoading(false);
                 return;
             }
             const signedUrl = await getSignedUrl(currentAgentId)
@@ -296,6 +306,7 @@ export function ConversationInterface() {
                 onConnect: () => {
                     console.log('Conversation connected');
                     setIsConnected(true)
+                    setApiConfigured(true);
                     setIsSpeaking(true)
                     setAgentState(agentType === 'inbound' ? 'listening' : 'talking')
                     // Note: startRecording() is for GibberLink mode only, not for ElevenLabs conversation
@@ -309,36 +320,36 @@ export function ConversationInterface() {
                 },
                 clientTools: {
                     gibbMode: async (params: any) => {
-                      console.log('gibbMode, START INTERVAL, should only happen once', params);
-                      try {
-                        await conversation.endSession();
-                        const nextMessage = 'is it better now?';
-                        setLLMChat(prevChat => [...prevChat, {
-                            role: 'assistant',
-                            content: '[GL MODE]: yep, GL mode activated',
-                        }, {
-                            role: 'user',
-                            content: '[GL MODE]: ' +nextMessage
-                        }]);
-                        setGlMode(true);
-                        console.log('Conversation ended successfully in gibbMode');
-                        setConversation(null);
-                        await startRecording();
-                        setLatestUserMessage(nextMessage);
-                        await sendAudioMessage(nextMessage, agentType === 'inbound');
-                      } catch (error) {
-                        console.error('Error in gibbMode:', error);
-                      }
-                      
-                      return 'entering GibberLink mode'
+                        console.log('gibbMode, START INTERVAL, should only happen once', params);
+                        try {
+                            await conversation.endSession();
+                            const nextMessage = 'is it better now?';
+                            setLLMChat(prevChat => [...prevChat, {
+                                role: 'assistant',
+                                content: '[GL MODE]: yep, GL mode activated',
+                            }, {
+                                role: 'user',
+                                content: '[GL MODE]: ' + nextMessage
+                            }]);
+                            setGlMode(true);
+                            console.log('Conversation ended successfully in gibbMode');
+                            setConversation(null);
+                            await startRecording();
+                            setLatestUserMessage(nextMessage);
+                            await sendAudioMessage(nextMessage, agentType === 'inbound');
+                        } catch (error) {
+                            console.error('Error in gibbMode:', error);
+                        }
+
+                        return 'entering GibberLink mode'
                     }
                 },
                 onMessage: handleMessage,
                 onError: (error) => {
                     console.log(error)
-                    alert('An error occurred during the conversation')
+                    setApiConfigured(false);
                 },
-                onModeChange: ({mode}) => {
+                onModeChange: ({ mode }) => {
                     console.log('onModeChange', mode);
                     setIsSpeaking(mode === 'speaking')
                     setAgentState(mode === 'speaking' ? 'talking' : 'listening')
@@ -346,7 +357,7 @@ export function ConversationInterface() {
             })
             console.log('Setting conversation state:', conversation);
             setConversation(conversation)
-            
+
             // Initialize audio context for microphone input
             if (conversation.input?.context && conversation.input?.inputStream) {
                 console.log('Initializing audio with conversation input stream');
@@ -356,7 +367,7 @@ export function ConversationInterface() {
             }
         } catch (error) {
             console.error('Error starting conversation:', error)
-            alert('An error occurred while starting the conversation')
+            setApiConfigured(false);
         } finally {
             setIsLoading(false)
         }
@@ -367,7 +378,7 @@ export function ConversationInterface() {
             <Script src="/ggwave/ggwave.js" strategy="afterInteractive" />
             <div className="fixed inset-0">
                 {latestUserMessage && (
-                    <div 
+                    <div
                         key={`message-${latestUserMessage}`}
                         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[200px] z-10 text-3xl md:text-5xl w-full px-8 text-center font-normal"
                         style={{
@@ -386,11 +397,11 @@ export function ConversationInterface() {
                         {latestUserMessage}
                     </div>
                 )}
-                
+
                 <div className="h-full w-full flex items-center justify-center">
                     <div id="audioviz" style={{ marginLeft: "-150px", width: "400px", height: "300px", display: glMode ? 'block' : 'none' }} />
                     {!glMode && (
-                        <div 
+                        <div
                             onClick={() => {
                                 if (!conversation && !isConnected && !isLoading) {
                                     const newAgentType = agentType === 'inbound' ? 'outbound' : 'inbound';
@@ -400,8 +411,8 @@ export function ConversationInterface() {
                                     setTimeout(() => setOrbClicked(false), 2000);
                                 }
                             }}
-                            style={{ 
-                                width: '400px', 
+                            style={{
+                                width: '400px',
                                 height: '400px',
                                 cursor: conversation || isConnected || isLoading || glMode ? 'default' : 'pointer'
                             }}
@@ -429,14 +440,16 @@ export function ConversationInterface() {
                         </Button>
                     </div>
                 )}
-                
-                <VoiceChatTranscript 
-                    messages={llmChat}
-                    blockchainTx={latestBlockchainTx}
-                    mettaKnowledge={latestMettaKnowledge}
-                />
 
-                {mounted && fetchaiAddress && (
+                {(conversation || isConnected || glMode) && (
+                    <VoiceChatTranscript
+                        messages={llmChat}
+                        blockchainTx={latestBlockchainTx}
+                        mettaKnowledge={latestMettaKnowledge}
+                    />
+                )}
+
+                {mounted && fetchaiAddress && (conversation || isConnected || glMode) && (
                     <div className="fixed top-4 right-4 z-50 bg-white border border-gray-300 shadow-lg px-4 py-2.5 rounded-lg">
                         <div className="flex items-center gap-2">
                             <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse"></div>
@@ -444,6 +457,19 @@ export function ConversationInterface() {
                         </div>
                         <div className="text-xs mt-1.5 text-gray-700 font-mono">
                             Agent: {fetchaiAddress.substring(0, 12)}...
+                        </div>
+                    </div>
+                )}
+
+                {mounted && !apiConfigured && (
+                    <div className="fixed bottom-4 right-4 z-50 bg-blue-900 shadow-lg px-4 py-3 rounded-lg max-w-xs">
+                        <div className="flex items-start gap-2">
+                            <svg className="w-5 h-5 text-white flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                            </svg>
+                            <div>
+                                <p className="text-sm font-medium text-white leading-tight">Unable to connect. Please configure your API key to start using Olivia.</p>
+                            </div>
                         </div>
                     </div>
                 )}

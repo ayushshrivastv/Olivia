@@ -37,6 +37,17 @@ next-env.d.ts
 .vscode/
 .cspell.json
 
+# Python
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+dist/
+
 # OS
 .DS_Store
 *.swp

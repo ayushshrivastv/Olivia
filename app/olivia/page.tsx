@@ -1,8 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
 import type { YTOnReadyEvent, YTOnStateChangeEvent, YTPlayer } from '@/types/youtube';
 
 export default function OliviaPage() {
@@ -298,41 +296,13 @@ export default function OliviaPage() {
   };
 
   return (
-    <div className="flex flex-col w-screen h-screen max-w-[1600px] mx-auto bg-black overflow-hidden">
-      <header className="h-[5rem] flex-shrink-0 flex w-full items-center justify-start bg-black px-6 lg:px-20">
-        <nav className="flex items-center w-full" aria-label="Global">
-          <Link
-            href="/"
-            className="flex items-center justify-center"
-            tabIndex={-1}
-            title="Olivia | AI Voice Assistant"
-          >
-            <Image
-              src="/ASI Logo.png"
-              height={64}
-              width={64}
-              alt="ASI Logo"
-              className="rounded-full"
-              style={{
-                borderRadius: '50%',
-                objectFit: 'contain',
-                filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))',
-              }}
-            />
-          </Link>
-        </nav>
-      </header>
-      <div className="flex-1 flex items-center justify-center overflow-hidden px-6 lg:px-20 pb-6">
-        <div className="w-full h-full max-w-7xl relative flex items-center justify-center">
+    <div className="flex flex-col w-screen h-screen bg-black overflow-hidden">
+      <div className="flex-1 flex items-center justify-center overflow-hidden px-6 lg:px-20">
+        <div className="w-full max-w-7xl relative flex items-center justify-center">
           <div
             className={`relative w-full flex items-center justify-center ${!isMounted || (!isYouTube && videoSrc) ? 'cursor-pointer' : ''
               }`}
             onClick={handleVideoClick}
-            style={{
-              maxWidth: '100%',
-              maxHeight: 'calc(100vh - 7rem)',
-              width: '100%',
-            }}
           >
             {videoSrc ? (
               isYouTube && youtubeVideoId ? (
@@ -341,11 +311,7 @@ export default function OliviaPage() {
                   className="rounded-3xl shadow-2xl overflow-hidden"
                   style={{
                     width: '100%',
-                    height: 'auto',
-                    maxWidth: '100%',
-                    maxHeight: 'calc(100vh - 7rem)',
                     aspectRatio: '16/9',
-                    minHeight: 0,
                     borderRadius: '24px',
                     boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
                   }}
@@ -363,12 +329,8 @@ export default function OliviaPage() {
                   className="rounded-3xl shadow-2xl"
                   style={{
                     width: '100%',
-                    height: 'auto',
-                    maxWidth: '100%',
-                    maxHeight: 'calc(100vh - 7rem)',
-                    objectFit: 'contain',
                     aspectRatio: '16/9',
-                    minHeight: 0,
+                    objectFit: 'contain',
                     borderRadius: '24px',
                     boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
                   }}

@@ -1,6 +1,6 @@
 # Olivia - AI Voice Assistant
 
-![tag:innovationlab](https://img.shields.io/badge/innovationlab-3D8BD3) ![tag:hackathon](https://img.shields.io/badge/hackathon-5F43F1)
+![tag:innovationlab](https://img.shields.io/badge/innovationlab-3D8BD3) ![tag:hackathon](https://img.shields.io/badge/hackathon-5F43F1) ![Fetch.ai](https://img.shields.io/badge/Fetch.ai-5F43F1) ![ASI Alliance](https://img.shields.io/badge/ASI%20Alliance-5F43F1) ![Agentverse](https://img.shields.io/badge/Agentverse-5F43F1)
 
 ## Overview
 
@@ -60,6 +60,4 @@ This project is licensed under the MIT License. Please refer to the LICENSE file
 
 Olivia represents a collaborative effort that brings together multiple innovative technologies. We extend our gratitude to Fetch.ai for providing the uAgents framework that enables decentralized agent creation and communication. SingularityNET deserves recognition for the MeTTa knowledge graph that provides access to structured knowledge. ElevenLabs has been instrumental in providing high-quality voice AI capabilities. Finally, we acknowledge the ASI Alliance for creating the platform and ecosystem that makes projects like Olivia possible, bringing together these cutting-edge technologies in a unified framework.
 
----
 
-Built for the **ASI Alliance Hackathon 2024**
